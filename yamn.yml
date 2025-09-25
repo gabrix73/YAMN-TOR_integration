@@ -1,0 +1,95 @@
+# Configurazione YAMN con supporto Tor semplificato
+
+# Configurazione generale
+general:
+  loglevel: "INFO"              # DEBUG, TRACE, INFO, WARN, ERROR  
+  logtofile: true
+  logtojournal: false
+
+# Configurazione Tor (semplificata)
+tor:
+  enabled: true                 # Abilita routing Tor
+  required: false               # true = esce se Tor non disponibile
+  socksproxy: "127.0.0.1:9050"  # Proxy SOCKS5 (fisso)
+  timeout: 30                   # Timeout connessioni (secondi)
+  circuit_reset: 10             # Minuti tra reset circuiti automatici
+
+# Configurazione file e directory
+files:
+  pooldir: "/var/spool/yamn/pool"
+  maildir: "/var/spool/yamn/Maildir"
+  pubring: "/etc/yamn/pubring.mix"
+  secring: "/etc/yamn/secring.mix"
+  pubkey: "/etc/yamn/key.txt"
+  adminkey: "/etc/yamn/adminkey.txt"
+  help: "/etc/yamn/help.txt"
+  mlist2: "/etc/yamn/mlist2.txt"
+  logfile: "/var/log/yamn/yamn.log"
+  idlog: "/var/lib/yamn/idlog"
+  chunkdb: "/var/lib/yamn/chunkdb"
+
+# URL per aggiornamenti automatici
+urls:
+  fetch: true
+  pubring: "https://echolot.virebent.art/pubring.mix"
+  mlist2: "https://echolot.virebent.art/mlist2.txt"
+
+# Configurazione mail
+mail:
+  sendmail: false
+  pipe: ""
+  outfile: false                # Per test: salva invece di inviare
+  usetls: true
+  smtp_relay: "localhost"
+  smtp_port: 25
+  mx_relay: true                # Abilita lookup MX
+  onion_relay: true             # Permetti relay .onion
+  sender: "remailer@example.com"
+  username: ""
+  password: ""
+  outbound_name: "Anonymous Tor Remailer"
+  outbound_addy: "remailer@example.com"
+  custom_from: false
+  # Configurazioni Tor per email
+  force_tor_smtp: false         # Forza tutto SMTP attraverso Tor
+  disable_tls_onion: true       # Disabilita TLS per .onion (ridondante)
+
+# Configurazione statistiche
+stats:
+  minlat: 2                     # Latenza minima (minuti)
+  maxlat: 60                    # Latenza massima (minuti)
+  minrel: 95.0                  # Affidabilità minima intermedi (%)
+  rel_final: 98.0               # Affidabilità minima finale (%)
+  chain: "*,*,*"                # Chain default (* = random)
+  num_copies: 1                 # Copie per messaggio
+  distance: 2                   # Distanza minima tra nodi
+  stale_hours: 24               # Ore dopo cui stats obsolete
+  use_expired: false            # Usa chiavi scadute
+
+# Configurazione pool
+pool:
+  size: 45                      # Dimensione minima pool
+  rate: 65                      # Percentuale messaggi da inviare
+  min_send: 5                   # Minimo messaggi da considerare
+  loop: 300                     # Secondi tra cicli
+  max_age: 7                    # Età massima messaggi (giorni)
+
+# Configurazione remailer
+remailer:
+  name: "Simple Tor Remailer"
+  address: "remailer@example.com"
+  exit: true                    # true = exit, false = middleman
+  max_size: 1024                # Dimensione max messaggi (KB)
+  id_expire: 14                 # Giorni scadenza ID log
+  chunk_expire: 60              # Giorni scadenza chunk
+  max_age: 14                   # Età max messaggi (giorni)
+  key_life: 30                  # Giorni validità chiavi
+  key_grace: 7                  # Giorni grazia chiavi
+  daemon: true                  # Esegui come daemon
+
+# Note configurazione:
+# 1. Tor usa sempre e solo 127.0.0.1:9050
+# 2. Reset circuiti automatico ogni 10 minuti 
+# 3. Per forzare tutto via Tor: force_tor_smtp: true
+# 4. Per .onion TLS è disabilitato automaticamente
+# 5. Logging standard con i normali livelli (DEBUG, INFO, WARN, ERROR)
