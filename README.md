@@ -4,7 +4,7 @@ Enhanced version of [YAMN (Yet Another Mixmaster Network)](https://github.com/cr
 
 ## Project Overview
 
-We have developed an enhanced version of YAMN (Yet Another Mixmaster Network) with native Tor network integration. This project significantly improves the anonymity and security of the mixmaster remailer network by leveraging Tor's onion routing capabilities.
+We have developed an enhanced version of YAMN (Yet Another Mixmaster Network) with native Tor network integration. This project significantly improves the anonymity and security of the yamn/mixmaster remailer network by leveraging Tor's onion routing capabilities.
 
 **Mission:** To create a more secure, anonymous, and censorship-resistant email remailer system by seamlessly integrating Tor network capabilities into the existing YAMN infrastructure.
 
@@ -26,7 +26,7 @@ We have developed an enhanced version of YAMN (Yet Another Mixmaster Network) wi
 - Enhanced SMTP relay with Tor support
 - Configuration system for Tor parameters
 
-### Example Usage
+### Example Client Usage
 
 ```bash
 # First create a message file with proper email headers
@@ -130,9 +130,6 @@ go build -ldflags="-s -w -X main.version=0.2.8-tor" \
          -trimpath \
          -buildmode=pie \
          -o yamn .
-
-# Set proper permissions
-chmod 755 yamn
 ```
 
 **Build flags explained:**
